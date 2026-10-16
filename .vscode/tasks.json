@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "환경 설정",
+      "type": "shell",
+      "command": "bash",
+      "args": ["setup.sh"],
+      "windows": {
+        "command": "powershell",
+        "args": ["-ExecutionPolicy", "Bypass", "-File", "setup.ps1"]
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "전체 테스트",
+      "type": "shell",
+      "command": ".venv/bin/python",
+      "windows": { "command": ".venv\\Scripts\\python.exe" },
+      "args": ["-m", "pytest"],
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "특정 번호만 테스트",
+      "type": "shell",
+      "command": ".venv/bin/python",
+      "windows": { "command": ".venv\\Scripts\\python.exe" },
+      "args": ["-m", "pytest", "-k", "problem_${input:problem}"],
+      "group": "test",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "problem",
+      "type": "promptString",
+      "description": "문제 번호 (예: 01)",
+      "default": "01"
+    }
+  ]
+}
